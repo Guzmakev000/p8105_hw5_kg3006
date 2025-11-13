@@ -1,0 +1,6 @@
+---
+title: "p8105_hw3_kg3006"
+author: "Kevin Guzman"
+date: "2025-10-09"
+output: github_document
+---
