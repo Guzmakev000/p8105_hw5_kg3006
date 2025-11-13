@@ -4,3 +4,16 @@ author: "Kevin Guzman"
 date: "2025-10-09"
 output: github_document
 ---
+
+## Problem 1 
+
+```{r}
+#Writting bithrday loop function
+birthday <- function(x) {
+  birthday <- sample(1:365, size=x)
+  
+  #check duplicates 
+  any(duplicated(birthday))
+}
+```
+
