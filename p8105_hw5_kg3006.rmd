@@ -145,5 +145,18 @@ The Washington Post Homicide Data contains information on homicides in the Unite
 WP <- WP %>%
   mutate(city_state = paste0(city, ", ", state))
 
+WP <- WP %>%
+  mutate(unsolved = disposition %in% c("Closed without arrest", "Open/No arrest"))
+
+#Creating summary table (total homocites, and totalunsolved number by city ) 
+homocide_unsolved_table <- WP %>%
+  group_by(city_state) %>%
+  summarize(
+    total_homicides = n(),
+    total_unsolved = sum(unsolved),
+    .groups = 'drop'
+  )
+
+print(homocide_unsolved_table, n=Inf)
 ```
 
