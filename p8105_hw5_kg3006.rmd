@@ -139,3 +139,11 @@ WP <- read.csv(
 
 The Washington Post Homicide Data contains information on homicides in the United States from `r min(WP$reported_date)`
  to `r max(WP$reported_date)`. It contains a total of `r nrow(WP)` observations and `r ncol(WP)` variables. Key variables that it contains are the victims name, race, age, sex, city, state, and disposition of the homicide case. 
+ 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Creating city, state variable 
+WP <- WP %>%
+  mutate(city_state = paste0(city, ", ", state))
+
+```
+
