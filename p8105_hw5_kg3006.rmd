@@ -42,3 +42,18 @@ plot(group_sizes, results, type = "b",
 As noted in the graph. As the group sizes increase, the probabiliyt of a shared birthday also increases. Interestingly, even though there are 365 possible birthdays. The probability of a shared birthday among a group of 25 people is already over 50% and that of a group of 50 people is nearly 100%! 
 
 
+## Problem 2 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Setting fixed design element n = 30, and sigma=5, muu=0
+set.seed(123)
+n <- 30
+sigma <- 5
+muu <- 0
+
+# Simulating 5,000 dasets of size n from Normal distribution(muu, sigma)
+simulated_data <- replicate(5000, rnorm(n, mean = muu, sd = sigma))
+
+
+```
+
