@@ -7,6 +7,7 @@ output: github_document
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
+library(broom)
 ```
 
 
@@ -56,6 +57,7 @@ nsim <- 5000
 mean_p <- function(muu, n, sigma, nsim) {
   sim_data <- replicate(nsim, {
     x <- rnorm(n, mean = muu, sd = sigma)
+    ttest <- t.test(x, mu = 0)
   })
 }
 
