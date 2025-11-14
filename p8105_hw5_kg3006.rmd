@@ -50,24 +50,26 @@ As noted in the graph. As the group sizes increase, the probabiliyt of a shared 
 set.seed(123)
 n <- 30
 sigma <- 5
-muu <- 0:6
+muu_value <- 0:6
 nsim <- 5000
 
 #Creating a function that is easier 
-mean_p <- function(muu, n, sigma, nsim) {
+mean_p <- function(mu, n, sigma, nsim) {
   sim_data <- replicate(nsim, {
-    x <- rnorm(n, mean = muu, sd = sigma)
+    x <- rnorm(n, mean = mu, sd = sigma)
     ttest <- t.test(x, mu = 0)
     #Saving in table
     tibble(
       mean = mean(x),
       p_value = ttest$p.value,
-      muu = muu)
+      mu = mu)
     }, simplify = FALSE) %>% 
     bind_rows()
 }
 
 # Run the simulation 
-sim_data <- mean_p(muu, n, sigma, nsim)
+sim_data <- map_df(muu_value, ~ mean_p(.x, n, sigma, nsim))
+
+
 ```
 
