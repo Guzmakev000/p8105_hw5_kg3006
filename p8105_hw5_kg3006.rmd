@@ -52,9 +52,14 @@ sigma <- 5
 muu <- 0
 nsim <- 5000
 
-# Simulating 5,000 dasets of size n from Normal distribution(muu, sigma)
-simulated_data <- replicate(nsim, rnorm(n, mean = muu, sd = sigma))
+#Creating a function that is easier 
+mean_p <- function(muu, n, sigma, nsim) {
+  sim_data <- replicate(nsim, {
+    x <- rnorm(n, mean = muu, sd = sigma)
+  })
+}
 
-
+# Run the simulation 
+sim_data <- mean_p(muu, n, sigma, nsim)
 ```
 
