@@ -185,7 +185,9 @@ baltimore_data <- homocide_unsolved_table %>%
 The proportion of unsolved homicides in Baltimore, MD is estimated to be `r round(baltimore_data$estimate, 3)`, with a 95% confidence interval ranging from `r round(baltimore_data$conf.low, 3)` to `r round(baltimore_data$conf.high, 3)`.
 
 ### Homicides In All Cities 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, results=FALSE}
+The proportion of unsolved homicides varies across cities, as shown in the plot below which displays the estimated proportion of unsolved homicides along with their 95% confidence intervals for each city in the dataset. The highest was Chicago and the lowest was Tulsa, Alabama. 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results=FALSE, fig.width=7, fig.height=10}
 #Making function with Map and Mapp 2 using purrr pacakge 
 prop_city <- function(unsolved, total) {
   prop.test(
@@ -202,5 +204,19 @@ prop_city <- function(unsolved, total) {
 city_probability <- homocide_unsolved_table %>% 
   mutate(results = map2(total_unsolved, total_homicides, prop_city)) %>%
   unnest(results)
+
+#Plotting 
+city_probability %>% 
+  mutate(city_state = fct_reorder(city_state, estimate)) %>% 
+  ggplot(aes(x = city_state, y = estimate)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = conf.low, ymax = conf.high), width = 0) +
+  coord_flip() +
+  labs(
+    title = "Proportion of Unsolved Homicides by City",
+    x = "City",
+    y = "Proportion unsolved (95% CI)"
+  ) +
+  theme_minimal()
 ```
 
