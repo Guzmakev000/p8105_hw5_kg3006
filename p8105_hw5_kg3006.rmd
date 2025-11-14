@@ -45,6 +45,8 @@ As noted in the graph. As the group sizes increase, the probabiliyt of a shared 
 
 ## Problem 2 
 
+### Part A 
+This figure shows that at mean of 0, the power to detect a differnece is 0.05, as we increased the true mean value, the power to detect a difference also increases and approaches 100% by a true mean value of 4. 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Setting fixed design element n = 30, and sigma=5, muu=0
 set.seed(123)
@@ -74,5 +76,50 @@ sim_data <- map_df(muu_value, ~ mean_p(.x, n, sigma, nsim))
 power_results <- sim_data %>%
   group_by(mu) %>%
   summarize(power = mean(p_value <0.05), .groups = 'drop')
+
+#Plot 
+ggplot(power_results, aes(x = mu, y = power)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    x = "True value of μ",
+    y = "Power",
+    title = "Power by Effect Size"
+  ) +
+  ylim(0, 1) + 
+  theme_minimal()
+```
+
+### Part B
+The simulated value of mu in our simmulation with 5,000 simulation approximates that of the true value of mu quite well. 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+#Rejected mu 
+mu_rejected <- sim_data %>% 
+  group_by(mu) %>% 
+  summarize(
+    true_mu = mean(mean),
+    rejected_mu = mean(mean[p_value < 0.05]), 
+            .groups = 'drop')
+#Second plot
+
+ggplot(mu_rejected, aes(x = mu)) +
+  # All samples line
+  geom_line(aes(y = true_mu), color = "blue", size = 1.2) +
+  geom_point(aes(y = true_mu), color = "blue") +
+  
+  # Rejected samples line
+  geom_line(aes(y = rejected_mu), color = "red", size = 1.2) +
+  geom_point(aes(y = rejected_mu), color = "red") +
+  
+  # 45-degree reference line
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed") +
+  
+  labs(
+    x = "True value",
+    y = "Average estimatê",
+    title = "Average mu For All Samples (blue) vs Rejected Samples (red)"
+  ) +
+  theme_minimal()
 ```
 
