@@ -91,7 +91,7 @@ ggplot(power_results, aes(x = mu, y = power)) +
 ```
 
 ### Part B
-The simulated value of mu in our simmulation with 5,000 simulation approximates that of the true value of mu quite well. 
+The simulated value of mu in our simmulation with 5,000 simulation approximates that of the true value of mu quite well. When you look at only those where the t-test rejected the hypothesis though. You see that, for the smaller subsets the ones that were rejected had means that were far away from the true value. 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 #Rejected mu 
