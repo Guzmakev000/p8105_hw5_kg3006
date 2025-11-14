@@ -123,3 +123,19 @@ ggplot(mu_rejected, aes(x = mu)) +
   theme_minimal()
 ```
 
+## Problem 3 
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+#Loading Washington Post Homocide Data 
+WP <- read.csv(
+  "https://raw.githubusercontent.com/washingtonpost/data-homicides/master/homicide-data.csv",
+  stringsAsFactors = FALSE
+)
+
+#Cleaning data a bit
+  #reported_date, fixing date   
+  WP$reported_date <-as.Date(as.character(WP$reported_date), format="%Y%m%d") 
+```
+
+The Washington Post Homicide Data contains information on homicides in the United States from `r min(WP$reported_date)`
+ to `r max(WP$reported_date)`. It contains a total of `r nrow(WP)` observations and `r ncol(WP)` variables. Key variables that it contains are the victims name, race, age, sex, city, state, and disposition of the homicide case. 
