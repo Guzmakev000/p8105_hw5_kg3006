@@ -50,7 +50,7 @@ As noted in the graph. As the group sizes increase, the probabiliyt of a shared 
 set.seed(123)
 n <- 30
 sigma <- 5
-muu <- 0
+muu <- 0:6
 nsim <- 5000
 
 #Creating a function that is easier 
