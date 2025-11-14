@@ -70,6 +70,9 @@ mean_p <- function(mu, n, sigma, nsim) {
 # Run the simulation 
 sim_data <- map_df(muu_value, ~ mean_p(.x, n, sigma, nsim))
 
-
+# Power Calculation 
+power_results <- sim_data %>%
+  group_by(mu) %>%
+  summarize(power = mean(p_value <0.05), .groups = 'drop')
 ```
 
