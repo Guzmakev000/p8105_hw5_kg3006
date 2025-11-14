@@ -7,7 +7,7 @@ output: github_document
 
 ## Problem 1 
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 #Writting bithrday loop function
 birthday <- function(x) {
   birthday <- sample(1:365, size=x, replace=TRUE)
