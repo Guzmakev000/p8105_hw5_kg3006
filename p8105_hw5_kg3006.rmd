@@ -58,7 +58,13 @@ mean_p <- function(muu, n, sigma, nsim) {
   sim_data <- replicate(nsim, {
     x <- rnorm(n, mean = muu, sd = sigma)
     ttest <- t.test(x, mu = 0)
-  })
+    #Saving in table
+    tibble(
+      mean = mean(x),
+      p_value = ttest$p.value,
+      muu = muu)
+    }, simplify = FALSE) %>% 
+    bind_rows()
 }
 
 # Run the simulation 
